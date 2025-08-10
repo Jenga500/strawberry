@@ -81,7 +81,7 @@ jobs:
             gtest
             gmock
             sparsehash-devel
-            rapidjson-devel
+            discord-rpc-devel
       - name: Install kdsingleapplication-qt6-devel
         if: matrix.opensuse_version != 'leap:15.6'
         run: zypper -n --gpg-auto-import-keys in kdsingleapplication-qt6-devel
@@ -207,7 +207,7 @@ jobs:
             gtest-devel
             gmock-devel
             sparsehash-devel
-            rapidjson-devel
+            discord-rpc-devel
       - name: Checkout
         uses: actions/checkout@v6
         with:
@@ -303,7 +303,7 @@ jobs:
           appstream
           appstream-util
           hicolor-icon-theme
-          rapidjson
+          discord-rpc-devel
       - name: Remove files
         run: rm -rf /usr/lib64/qt6/lib/cmake/Qt6Sql/{Qt6QMYSQL*,Qt6QODBCD*,Qt6QPSQL*,Qt6QIBase*}
       - name: Checkout
@@ -399,7 +399,7 @@ jobs:
           appstream-util
           hicolor-icon-theme
           gtest
-          rapidjson
+          discord-rpc-devel
       - name: Build and install KDSingleApplication
         if: matrix.mageia_version == '9'
         run: |
@@ -520,7 +520,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory build
       - name: Configure CMake
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON -DENABLE_DISCORD_RPC=OFF
       - name: Delete build directory
         run: rm -rf build
       - name: make deb
@@ -616,7 +616,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory build
       - name: Configure CMake
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON -DENABLE_DISCORD_RPC=OFF
       - name: Delete build directory
         run: rm -rf build
       - name: make deb
@@ -692,7 +692,6 @@ jobs:
             gstreamer1.0-alsa
             gstreamer1.0-pulseaudio
             libkdsingleapplication-qt6-dev
-            rapidjson-dev
       - name: Install keyboxd
         if: matrix.ubuntu_version == 'noble'
         env:
@@ -712,7 +711,7 @@ jobs:
       - name: Create Build Environment
         run: cmake -E make_directory build
       - name: Configure CMake
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_WERROR=ON -DENABLE_DISCORD_RPC=OFF
       - name: Delete build directory
         run: rm -rf build
       - name: Import Ubuntu PPA GPG private key
@@ -756,7 +755,7 @@ jobs:
           set -e
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
           cmake -E make_directory build
-          cmake -S . -B build -DCMAKE_BUILD_TYPE="Debug"
+          cmake -S . -B build -DCMAKE_BUILD_TYPE="Debug" -DENABLE_DISCORD_RPC=OFF
           cmake --build build --config Debug --parallel 4
 
 
@@ -776,7 +775,7 @@ jobs:
       with:
         usesh: true
         mem: 4096
-        prepare: pkg_add git cmake pkgconf boost glib2 qt6-qtbase qt6-qttools sqlite gstreamer1 gstreamer1-plugins-base chromaprint libebur128 taglib libcdio libmtp gdk-pixbuf libgpod fftw3 icu4c kdsingleapplication pulseaudio sparsehash rapidjson
+        prepare: pkg_add git cmake pkgconf boost glib2 qt6-qtbase qt6-qttools sqlite gstreamer1 gstreamer1-plugins-base chromaprint libebur128 taglib libcdio libmtp gdk-pixbuf libgpod fftw3 icu4c kdsingleapplication pulseaudio sparsehash
         run: |
           set -e
           export LDFLAGS="-L/usr/local/lib"

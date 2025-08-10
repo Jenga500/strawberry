@@ -75,7 +75,7 @@ void RichPresence::ReloadSettings() {
   s.endGroup();
 
   if (enabled && !initialized_) {
-    Discord_Initialize(kDiscordApplicationId, nullptr, 0);
+    Discord_Initialize(kDiscordApplicationId, nullptr, 0, nullptr);
     initialized_ = true;
   }
   else if (!enabled && initialized_) {
@@ -124,7 +124,6 @@ void RichPresence::SendPresenceUpdate() {
   // Listening to
   presence_data.type = 2;
   presence_data.status_display_type = status_display_type_;
-
   presence_data.largeImageKey = kStrawberryIconResourceName;
   presence_data.smallImageKey = kStrawberryIconResourceName;
   presence_data.smallImageText = kStrawberryIconDescription;
